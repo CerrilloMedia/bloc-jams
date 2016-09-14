@@ -56,11 +56,9 @@ body {
     html { font-size: 120%; }
 }
 
-
-
 .clearfix::before,
 .clearfix::after {
-    content: "";
+    content: " ";
     display: table;
 }
 
