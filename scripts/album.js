@@ -172,7 +172,7 @@ window.onload = function() {
             if (songItemNumber !== currentPlayingSong) {
                 songItem.innerHTML = songItemNumber;
             } else { // without this code, re-hovering (not clicking) over the pause icon sets it back to play prematurely
-                songItem.innerHTML = pauseButtonTemplate;
+                songItem.innerHTML = playButtonTemplate;
             }
             
         });
