@@ -82,11 +82,7 @@ var findParentByClassName = function(element, targetClass) {
             currentParent = currentParent.parentElement;
         }
         return currentParent;
-    } else if (currentParent === null) {
-        alert("no parent found");
-    } else { // no parent match
-        alert("no parent found with that class name");
-    }
+    } 
     
     
 };
@@ -124,7 +120,7 @@ var clickHandler = function(targetElement) {
         
     } else if (currentPlayingSong === songItem.getAttribute('data-song-number')) { // if song selected is already playing (pause when clicked)
         // change the button option from 'pause' to 'play'
-        songItem.innerHTML = playButtonTemplate;
+        songItem.innerHTML = pauseButtonTemplate;
         // and set song to null (not currently playing)
         currentPlayingSong = null;                  
     } else if ( currentPlayingSong != songItem.getAttribute('data-song-number') ) {  // revert play/pause button back to track number if not currentPlayingSong
@@ -149,17 +145,20 @@ var currentPlayingSong = null; // will always be a string value
 window.onload = function() {
     setCurrentAlbum(currentAlbum = albumPicasso);
     
+    // MouseOver 
     songListContainer.addEventListener('mouseover', function(event) {        
         if (event.target.parentElement.className === 'album-view-song-item') {
-            event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
+            
             var songItem = getSongItem(event.target);
-        
-            if ( songItem.getAttribute('data-song-number') !== currentPlayingSong ) {
+            
+            event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
+            
+            if ( songItem.getAttribute('data-song-number') !== currentPlayingSong  ) {
                 songItem.innerHTML = playButtonTemplate;
                 // change the value of the table cell.innerHTML only when it's not the currently playing song
-            } else { // included this line so as to show which track was currently playing
+            } /*  else { // included this line so as to show which track was currently playing
                 songItem.innerHTML = pauseButtonTemplate;
-            }
+            } */
         }
     });
     
