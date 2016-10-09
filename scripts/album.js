@@ -122,7 +122,7 @@ var nextSong = function() {
     currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
     
     // Why wouldn't we use updatePlayerBarSong for the following lines?
-    $('.currently-playing .song-item').text(currentSongFromAlbum.title);
+    $('.currently-playing .song-name').text(currentSongFromAlbum.title);
     $('.currently-playing .artist-name').text(currentAlbum.artist);
     $('.currently-playing .song-artist-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
     $('.main-controls .play-pause').html(playerBarPauseButton);
@@ -155,7 +155,7 @@ var previousSong = function() {
     console.log("currentlyPlayingSongNumber: " + currentlyPlayingSongNumber);
     
     // Why wouldn't we use updatePlayerBarSong for the following lines?
-    $('.currently-playing .song-item').text(currentSongFromAlbum.title);
+    $('.currently-playing .song-name').text(currentSongFromAlbum.title);
     $('.currently-playing .artist-name').text(currentAlbum.artist);
     $('.currently-playing .song-artist-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
     $('.main-controls .play-pause').html(playerBarPauseButton);
