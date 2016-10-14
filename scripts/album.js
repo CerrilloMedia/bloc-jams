@@ -4,7 +4,7 @@ var createSongRow = function(songNumber, songName, songLength) {
     var template = '<tr class="album-view-song-item">'
     + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
     + '  <td class="song-item-title">' + songName + '</td>'
-    + '  <td class="song-item-duration">' + songLength + '</td>'
+    + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
     + '</tr>';
     
     var $row = $(template);
@@ -106,8 +106,18 @@ var updateSeekBarWhileSongPlays = function() {
             var $seekBar = $('.seek-control .seek-bar');
             
             updateSeekPercentage($seekBar, seekBarFillRatio);
-            setPlayerBarTimeData(); // increments the seconds as well as displays the time duration
+            setCurrentTimeInPlayerBar(this.getTime());
         });
+        
+    // continuous play until end of album, or confirm re-play at albums end
+    currentSoundFile.bind('ended', function() {
+        if ( currentlyPlayingSongNumber != currentAlbum.songs.length) {
+            nextSong();
+        } else if (
+            confirm("Album finished, would you like to hear it again?")) {
+            nextSong();
+        }
+    });
     }
 };
 
@@ -202,6 +212,20 @@ var seek = function(time) {
     };
 };
 
+var filterTimeCode = function(timeInSeconds) {
+    var minutes = parseInt(timeInSeconds/60);
+    var seconds = Math.floor(timeInSeconds % 60);
+    return minutes + ":" + ( seconds > 9 ? seconds : "0" + seconds);
+};
+
+var setCurrentTimeInPlayerBar = function(currentTime) {
+    $('.current-time').text(filterTimeCode(currentTime));
+};
+
+var setTotalTimeinPlayerBar = function(totalTime) {    
+    $('.total-time').text(filterTimeCode(totalTime));
+};
+
 var setVolume = function(volume) {
     if (currentSoundFile) {
         currentSoundFile.setVolume(volume);
@@ -220,6 +244,7 @@ var updatePlayerBarSong = function(album) {
     
     // When any song is playing, show pause button
     $('.main-controls .play-pause').html(playerBarPauseButton);
+    setTotalTimeinPlayerBar(currentSongFromAlbum.duration);   
 };
 
 var nextSong = function() {
