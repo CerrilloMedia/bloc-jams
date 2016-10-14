@@ -97,7 +97,7 @@ var setCurrentAlbum = function(album) {
         var $newRow = createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
         $albumSongList.append($newRow);
     }
-};
+}; 
 
 var updateSeekBarWhileSongPlays = function() {
     if (currentSoundFile) { // if a soundfile is playing or paused.
